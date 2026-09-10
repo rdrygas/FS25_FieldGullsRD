@@ -1,7 +1,18 @@
-refs/*
+# Release packages
+*.zip
+
+# Farming Simulator and editor output
 log.txt
-.vscode
-moveZip.bat
-moveDebug.bat
-package.bat
-FS25_FieldGulls.zip
+*.log
+*.bak
+
+# Operating-system and editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Temporary files
+*.tmp
+*.swp
+*~
