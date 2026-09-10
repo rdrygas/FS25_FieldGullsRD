@@ -1,4 +1,4 @@
-# Field Gulls
+# FS25 Field Gulls
 
 Field Gulls dodaje do Farming Simulator 25 animowane stada mew, które podążają za pracującymi narzędziami polowymi i żerują na świeżo obrobionej glebie.
 

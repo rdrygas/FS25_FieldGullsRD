@@ -1,4 +1,4 @@
-# Field Gulls
+# FS25 Field Gulls
 
 Field Gulls adds animated gull flocks that follow working field implements and feed on freshly worked ground in Farming Simulator 25.
 
