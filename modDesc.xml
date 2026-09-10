@@ -59,19 +59,19 @@ Journal des modifications :
         </fr>
     </description>
     <extraSourceFiles>
-        <sourceFile filename="src/BirdSettings.lua"/>
-        <sourceFile filename="src/BirdManager.lua"/>
-        <sourceFile filename="src/GridFeedingZones.lua"/>
-        <sourceFile filename="src/CurvedPathPlanner.lua"/>
-        <sourceFile filename="src/BirdStateMachine.lua"/>
-        <sourceFile filename="src/BirdConfig.lua"/>
-        <sourceFile filename="src/SimpleBirdDirect.lua"/>
-        <sourceFile filename="src/ToolBirdFlockManager.lua"/>
-        <sourceFile filename="src/ToolBirdsExtension.lua"/>
-        <sourceFile filename="src/extensions/PlowExtension.lua"/>
-        <sourceFile filename="src/extensions/CultivatorExtension.lua"/>
-        <sourceFile filename="src/extensions/SowingMachineExtension.lua"/>
+        <sourceFile filename="scripts/BirdSettings.lua"/>
+        <sourceFile filename="scripts/BirdManager.lua"/>
+        <sourceFile filename="scripts/GridFeedingZones.lua"/>
+        <sourceFile filename="scripts/CurvedPathPlanner.lua"/>
+        <sourceFile filename="scripts/BirdStateMachine.lua"/>
+        <sourceFile filename="scripts/BirdConfig.lua"/>
+        <sourceFile filename="scripts/SimpleBirdDirect.lua"/>
+        <sourceFile filename="scripts/ToolBirdFlockManager.lua"/>
+        <sourceFile filename="scripts/ToolBirdsExtension.lua"/>
+        <sourceFile filename="scripts/extensions/PlowExtension.lua"/>
+        <sourceFile filename="scripts/extensions/CultivatorExtension.lua"/>
+        <sourceFile filename="scripts/extensions/SowingMachineExtension.lua"/>
     </extraSourceFiles>
     <multiplayer supported="true"/>
-    <l10n filenamePrefix="languages/l10n" />
+    <l10n filenamePrefix="l10n/l10n" />
 </modDesc>
