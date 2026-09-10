@@ -60,9 +60,9 @@ function ToolBirdsExtension:reportToolActive(vehicle, dt, isCurrentlyWorking)
 
     -- Handle state transitions
     if isCurrentlyWorking and not data.isWorking then
-        -- Just started working - activate flock and cancel any despawn timer
+        -- Just started working - activation also handles a pending despawn timer,
+        -- but only when the current environment allows birds.
         data.flockManager:activate()
-        data.flockManager:cancelDespawnTimer()
         data.isWorking = true
     elseif not isCurrentlyWorking and data.isWorking then
         -- Just stopped working - start despawn timer on flock

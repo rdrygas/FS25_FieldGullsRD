@@ -14,7 +14,7 @@ ToolBirdFlockManager.SPAWN_DISTANCE_BEHIND = 50      -- Birds spawn 50m behind t
 ToolBirdFlockManager.SPAWN_HEIGHT_ABOVE_TERRAIN = 20 -- Birds spawn 20m above terrain
 ToolBirdFlockManager.DESPAWN_DELAY = 15000           -- Wait time before birds start flying away (milliseconds)
 ToolBirdFlockManager.DESPAWN_DURATION = 10000        -- How long birds fly away before being deleted (milliseconds)
-ToolBirdFlockManager.NO_BIRDS_TIMEOUT_MINUTES = 30   -- Minutes before birds can spawn again after chance roll fails
+ToolBirdFlockManager.NO_BIRDS_TIMEOUT_MINUTES = 60   -- Minutes before birds can spawn again after chance roll fails
 
 ---
 -- Get the working width of the tool from its work areas
@@ -141,17 +141,10 @@ function ToolBirdFlockManager:determineBirdSpawn()
         return false
     end
 
-    -- Check for precipitation - birds don't appear in rain/snow/hail
-    local weather = g_currentMission.environment.weather
-    if weather then
-        local rainfall = weather:getRainFallScale()
-        local snowfall = weather:getSnowFallScale()
-        local hailfall = weather:getHailFallScale()
-
-        if rainfall > 0 or snowfall > 0 or hailfall > 0 then
-            self.noBirdsUntilTime = g_time + (ToolBirdFlockManager.NO_BIRDS_TIMEOUT_MINUTES * 60 * 1000)
-            return false
-        end
+    -- Environmental restrictions are temporary and must not trigger the random
+    -- no-birds timeout.
+    if not self:isEnvironmentSuitable() then
+        return false
     end
 
     -- Check chance of birds appearing
@@ -169,6 +162,29 @@ function ToolBirdFlockManager:determineBirdSpawn()
     local maxBirds = BirdSettings and BirdSettings.settings and BirdSettings.settings.maxBirds or 80
     local minBirds = math.floor(maxBirds * 0.5)
     self.targetNumberOfBirds = minBirds + math.random(0, maxBirds - minBirds)
+    return true
+end
+
+---
+-- Check whether daylight and weather allow birds to be active.
+-- Weather:getRainFallScale() is the engine's precipitation intensity for rain
+-- and snow; hail is exposed separately through getIsHailing().
+-- @return boolean: true only during daylight and without precipitation
+---
+function ToolBirdFlockManager:isEnvironmentSuitable()
+    local mission = g_currentMission
+    local environment = mission and mission.environment
+    if not environment or not environment.isSunOn then
+        return false
+    end
+
+    local weather = environment.weather
+    if weather then
+        if weather:getRainFallScale() > 0 or weather:getIsHailing() then
+            return false
+        end
+    end
+
     return true
 end
 
@@ -247,6 +263,11 @@ end
 -- @return true if activated successfully
 ---
 function ToolBirdFlockManager:activate()
+    -- Never activate or resume a flock at night or during precipitation.
+    if not self:isEnvironmentSuitable() then
+        return false
+    end
+
     if self.isDespawning then
         self:cancelDespawnTimer()
 
@@ -284,7 +305,9 @@ function ToolBirdFlockManager:activate()
     end
 
     if self.isActive then
-        return false
+        -- The tool resumed before the normal despawn delay expired.
+        self:cancelDespawnTimer()
+        return true
     end
 
     -- Check max active tools limit before spawning a new flock
@@ -353,6 +376,13 @@ end
 -- @param dt: Delta time in milliseconds
 ---
 function ToolBirdFlockManager:update(dt)
+    -- Re-check the environment continuously. Existing birds use the same
+    -- delayed, gradual departure path as when a tool stops working.
+    local isEnvironmentSuitable = self:isEnvironmentSuitable()
+    if self.isActive and not isEnvironmentSuitable then
+        self:startDespawnTimer()
+    end
+
     -- ALWAYS update and cleanup despawning birds (even if inactive)
     for i = #self.despawningBirds, 1, -1 do
         local bird = self.despawningBirds[i]
@@ -405,7 +435,7 @@ function ToolBirdFlockManager:update(dt)
     end
 
     -- Gradually spawn birds over time (one every SPAWN_INTERVAL) - only when active
-    if self.isActive and not self.birdsSpawned and self.targetNumberOfBirds and self.numBirdsSpawned < self.targetNumberOfBirds then
+    if self.isActive and isEnvironmentSuitable and not self.birdsSpawned and self.targetNumberOfBirds and self.numBirdsSpawned < self.targetNumberOfBirds then
         if g_time - self.lastSpawnTime >= ToolBirdFlockManager.SPAWN_INTERVAL then
             self:spawnOneBird()
             self.lastSpawnTime = g_time
@@ -413,7 +443,7 @@ function ToolBirdFlockManager:update(dt)
     end
 
     -- Start looping sound 8 seconds after spawning begins AND at least 10 birds have spawned
-    if self.isActive and not self.soundStarted and self.soundStartTime and (g_time - self.soundStartTime) >= 8000 and #self.spawnedBirds >= 10 then
+    if self.isActive and isEnvironmentSuitable and not self.soundStarted and self.soundStartTime and (g_time - self.soundStartTime) >= 8000 and #self.spawnedBirds >= 10 then
         self:startSound()
         self.soundStarted = true
     end
