@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<modDesc descVersion="107">
-    <author>Ozz</author>
+<modDesc descVersion="111">
+    <author>Ozz, Robert Drygas / Codex</author>
     <version>1.0.0.1</version>
-    <iconFilename>icon_FieldGulls.dds</iconFilename>
+    <iconFilename>mod_icon.dds</iconFilename>
     <title>
         <en>Field Gulls</en>
         <de>Feldmöwen</de>
         <fr>Mouettes De Champ</fr>
+        <pl>Mewy polne</pl>
     </title>
     <description>
         <en><![CDATA[Field Gulls
@@ -18,6 +19,12 @@ Customize the number of gulls that can spawn, the chance of them appearing, and 
 GitHub: https://github.com/sprkem/FS25_FieldGulls
 
 Changelog:
+
+Fork changes after 1.0.0.1
+- Restricted flock activation to daylight and dry weather.
+- Added continuous environment checks while a flock is active.
+- Reused the gradual departure mechanism when night or precipitation begins.
+- Prevented environmental restrictions from starting the random-failure timeout.
 
 1.0.0.1:
 - Gulls will now only feed on ground worked by their associated tool, avoiding a weird effect when multiple tools are running.
@@ -35,6 +42,12 @@ GitHub: https://github.com/sprkem/FS25_FieldGulls
 
 Änderungsprotokoll:
 
+Änderungen an Fork nach Version 1.0.0.1
+- Die Aktivierung der Herde wurde auf Tageslicht und trockenes Wetter beschränkt.
+- Es wurden fortlaufende Umgebungsprüfungen hinzugefügt, während eine Herde aktiv ist.
+- Der Mechanismus zum schrittweisen Abzug wurde wiederverwendet, wenn die Nacht einsetzt oder Niederschlag einsetzt.
+- Es wurde verhindert, dass Umgebungsbeschränkungen das Timeout für zufällige Ausfälle auslösen.
+
 1.0.0.1:
 - Möwen fressen jetzt nur noch auf Boden, der von ihrem zugehörigen Werkzeug bearbeitet wurde, um einen seltsamen Effekt bei mehreren gleichzeitig laufenden Werkzeugen zu vermeiden.
 - Eine Einstellung wurde hinzugefügt, um die maximale Anzahl von Werkzeugen mit Möwen zu begrenzen, um die Leistung für einige Spieler zu verbessern.
@@ -51,12 +64,40 @@ GitHub: https://github.com/sprkem/FS25_FieldGulls
 
 Journal des modifications :
 
+Modifications apportées à Fork après la version 1.0.0.1
+- L'activation d'un troupeau a été limitée aux périodes de jour et par temps sec.
+- Ajout de vérifications continues des conditions environnementales pendant qu'un troupeau est actif.
+- Réutilisation du mécanisme de départ progressif lorsque la nuit tombe ou que les précipitations commencent.
+- Les restrictions environnementales ne déclenchent plus le délai d'expiration en cas de défaillance aléatoire.
+
 1.0.0.1 :
 - Les mouettes ne se nourrissent désormais que sur le sol travaillé par leur outil associé, évitant un effet étrange lorsque plusieurs outils fonctionnent en même temps.
 - Ajout d'un paramètre pour limiter le nombre maximum d'outils pouvant avoir des mouettes, afin d'améliorer les performances pour certains joueurs.
 - Ajout de la traduction polonaise grâce à KITT3000.
 ]]>
         </fr>
+        <pl><![CDATA[Mewy polne
+
+Mod dodający mewy, które podążają za tobą i żywią się ziemią podczas orki, uprawy, siewu lub używania podobnych narzędzi.
+
+Dostosuj liczbę pojawiających się mew, szansę na ich pojawienie się oraz głośność ich dźwięków w ustawieniach moda.
+
+GitHub: https://github.com/sprkem/FS25_FieldGulls
+
+Dziennik zmian:
+
+Zmiany forka po wersji 1.0.0.1
+- Ograniczono aktywację stad do dnia i pogody bez opadów.
+- Dodano ciągłe sprawdzanie warunków środowiskowych podczas aktywności stada.
+- Wykorzystano mechanizm stopniowego odlotu po nadejściu nocy lub rozpoczęciu opadów.
+- Warunki środowiskowe nie uruchamiają już blokady przeznaczonej dla nieudanego losowania.
+
+1.0.0.1 :
+- Ograniczono żerowanie każdego stada do ziemi obrobionej przez przypisane mu narzędzie.
+- Dodano ustawienie maksymalnej liczby aktywnych narzędzi.
+- Dodano polską lokalizację dzięki KITT3000.
+]]>
+        </pl>
     </description>
     <extraSourceFiles>
         <sourceFile filename="scripts/BirdSettings.lua"/>
