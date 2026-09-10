@@ -91,7 +91,7 @@ modSettings/FieldGulls.xml
 
 - Only implements exposing the standard `Plow`, `Cultivator`, or `SowingMachine` specializations are detected.
 - Appearance chance is evaluated when work changes from inactive to active. If work starts in unsuitable conditions and continues without interruption, a flock is not activated merely because daylight or dry weather later returns.
-- A failed appearance roll uses a 30-minute timeout, although the current in-game tooltip says one hour.
+- A failed appearance roll uses a 60-minute timeout.
 - Environmental departure retains the normal 15-second delay, so birds already present do not vanish immediately when night or precipitation begins.
 - Very large flock limits and many simultaneous active tools can reduce performance.
 - Multiplayer behavior is not currently verified.

@@ -91,7 +91,7 @@ modSettings/FieldGulls.xml
 
 - Wykrywane są wyłącznie narzędzia udostępniające standardowe specjalizacje `Plow`, `Cultivator` lub `SowingMachine`.
 - Szansa pojawienia się jest sprawdzana przy przejściu narzędzia ze stanu nieaktywnego do pracy. Jeśli praca rozpocznie się w złych warunkach i będzie trwała bez przerwy, samo nadejście dnia lub ustanie opadów nie aktywuje stada.
-- Nieudane losowanie uruchamia 30-minutową blokadę, mimo że aktualna podpowiedź w menu gry mówi o jednej godzinie.
+- Nieudane losowanie uruchamia 60-minutową blokadę.
 - Odlot wywołany zmianą warunków zachowuje standardowe 15-sekundowe opóźnienie, dlatego obecne ptaki nie znikają natychmiast po nadejściu nocy lub opadów.
 - Bardzo duże stada i wysoki limit aktywnych narzędzi mogą obniżać wydajność.
 - Zachowanie w trybie wieloosobowym nie zostało dotychczas zweryfikowane.
